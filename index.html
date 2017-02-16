@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>怪物猎人</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <div id="app">
+        <section class="row">
+            <div class="small-6 columns">
+                <h1 class="text-center">你</h1>
+                <div class="healthbar">
+                    <div 
+                        class="healthbar text-center" 
+                        style="background-color: green; margin: 0; color: white;"
+                        :style = "{width:playerHealth + '%'}">
+                        {{ playerHealth }}
+                    </div>
+                </div>
+            </div>
+            <div class="small-6 columns">
+                <h1 class="text-center">怪物</h1>
+                <div class="healthbar">
+                    <div 
+                        class="healthbar text-center" 
+                        style="background-color: green; margin: 0; color: white;"
+                        :style ="{width:monsterHealth + '%'}">
+                        {{ monsterHealth }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="row controls" v-if="!gameIsRunning">
+            <div class="small-12 columns">
+                <button id="start-game" @click="startGame">开始新游戏</button>
+            </div>
+        </section>
+        <section class="row controls" v-else>
+            <div class="small-12 columns">
+                <button id="attack" @click="attack">攻击</button>
+                <button id="special-attack" @click = "specialAttack">快速攻击</button>
+                <button id="heal" @click="heal">添加血量</button>
+                <button id="give-up" @click = 'giveUp'>投降</button>
+            </div>
+        </section>
+        <section class="row log" v-if="turns.length > 0">
+            <div class="small-12 columns">
+                <ul>
+                    <li v-for="item in turns"
+                        :class = "{'player-turn':item.isPlayer,'monster-turn':!item.isPlayer}">
+                        {{ item.text }}
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
